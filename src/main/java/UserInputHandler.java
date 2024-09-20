@@ -153,27 +153,27 @@ public class UserInputHandler
                 {
                     if (arguments.size() < 2)
                     {
-                        System.out.println("Use ram/pqc parameter");
+                        System.out.println("Use ram/keystore parameter");
                         continue;
                     }
                     if (arguments.get(1).equals("ram")) smartCard.installApplet(appletLocation + "RAMtest" + selectedSmartCardType + "\\RAMtest.cap");
-                    if (arguments.get(1).equals("pqc")) smartCard.installApplet(appletLocation);
+                    if (arguments.get(1).equals("keystore")) smartCard.installApplet(appletLocation + "KeyStore" + "\\KeyStore.cap");
                 }
                 if (arguments.get(0).equals("uninstall"))
                 {
                     if (arguments.size() < 2)
                     {
-                        System.out.println("Use ram/pqc parameter");
+                        System.out.println("Use ram/keystore parameter");
                         continue;
                     }
                     if (arguments.get(1).equals("ram")) smartCard.uninstallApplet(appletLocation + "RAMtest" + selectedSmartCardType + "\\RAMtest.cap");
-                    if (arguments.get(1).equals("pqc")) smartCard.uninstallApplet(appletLocation);
+                    if (arguments.get(1).equals("keystore")) smartCard.uninstallApplet(appletLocation + "KeyStore" + "\\KeyStore.cap");
                 }
                 if (arguments.get(0).equals("update"))
                 {
                     if (arguments.size() < 2)
                     {
-                        System.out.println("Use ram/pqc parameter");
+                        System.out.println("Use ram/keystore parameter");
                         continue;
                     }
                     if (arguments.get(1).equals("ram"))
@@ -181,10 +181,10 @@ public class UserInputHandler
                         smartCard.uninstallApplet(appletLocation + "RAMtest" + selectedSmartCardType + "\\RAMtest.cap");
                         smartCard.installApplet(appletLocation + "RAMtest" + selectedSmartCardType + "\\RAMtest.cap");
                     }
-                    if (arguments.get(1).equals("pqc"))
+                    if (arguments.get(1).equals("keystore"))
                     {
-                        smartCard.uninstallApplet(appletLocation);
-                        smartCard.installApplet(appletLocation);
+                        smartCard.uninstallApplet(appletLocation + "KeyStore" + "\\KeyStore.cap");
+                        smartCard.installApplet(appletLocation + "KeyStore" + "\\KeyStore.cap");
                     }
                 }
             }
