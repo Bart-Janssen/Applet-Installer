@@ -15,7 +15,6 @@ public class UserInputHandler
 {
 
     private final String appletLocation = System.getProperty("user.home") + "\\Desktop\\PQC-project\\Applet-RAM-benchmark\\applet\\";
-//    private final String pqcApplet = System.getProperty("user.home") + "\\Desktop\PQC-project\Applet-RAM-benchmark\applet\\";
 
     private String selectedSmartCardType;
 
@@ -96,12 +95,14 @@ public class UserInputHandler
                     capFile.dump(System.out);
                 }
                 if (arguments.get(0).equals("cm")) smartCard.selectCardManager();
-                if (arguments.get(0).equals("pqc")) smartCard.selectPQCApplet();
+                if (arguments.get(0).equals("keystore")) smartCard.selectKyberKeyStoreApplet();
+                if (arguments.get(0).equals("kyber512")) smartCard.selectKyber512Applet();
                 if (arguments.get(0).equals("ram")) smartCard.selectRAMApplet();
                 if (arguments.get(0).equals("select"))
                 {
                     if (arguments.get(1).equals("cm")) smartCard.selectCardManager();
-                    if (arguments.get(1).equals("pqc")) smartCard.selectPQCApplet();
+                    if (arguments.get(1).equals("keystore")) smartCard.selectKyberKeyStoreApplet();
+                    if (arguments.get(1).equals("kyber512")) smartCard.selectKyber512Applet();
                     if (arguments.get(1).equals("ram")) smartCard.selectRAMApplet();
                 }
                 if (arguments.get(0).equals("apdu"))
@@ -153,21 +154,23 @@ public class UserInputHandler
                 {
                     if (arguments.size() < 2)
                     {
-                        System.out.println("Use ram/keystore parameter");
+                        System.out.println("Use ram/keystore/kyber512 parameter");
                         continue;
                     }
                     if (arguments.get(1).equals("ram")) smartCard.installApplet(appletLocation + "RAMtest" + selectedSmartCardType + "\\RAMtest.cap");
-                    if (arguments.get(1).equals("keystore")) smartCard.installApplet(appletLocation + "KeyStore" + "\\KeyStore.cap");
+                    if (arguments.get(1).equals("kyber512")) smartCard.installApplet(appletLocation + "Kyber\\kyber512.cap");
+                    if (arguments.get(1).equals("keystore")) smartCard.installApplet(appletLocation + "KeyStore\\KeyStore.cap");
                 }
                 if (arguments.get(0).equals("uninstall"))
                 {
                     if (arguments.size() < 2)
                     {
-                        System.out.println("Use ram/keystore parameter");
+                        System.out.println("Use ram/keystore/kyber512 parameter");
                         continue;
                     }
                     if (arguments.get(1).equals("ram")) smartCard.uninstallApplet(appletLocation + "RAMtest" + selectedSmartCardType + "\\RAMtest.cap");
-                    if (arguments.get(1).equals("keystore")) smartCard.uninstallApplet(appletLocation + "KeyStore" + "\\KeyStore.cap");
+                    if (arguments.get(1).equals("kyber512")) smartCard.uninstallApplet(appletLocation + "Kyber\\Kyber512.cap");
+                    if (arguments.get(1).equals("keystore")) smartCard.uninstallApplet(appletLocation + "KeyStore\\KeyStore.cap");
                 }
                 if (arguments.get(0).equals("update"))
                 {
@@ -183,8 +186,13 @@ public class UserInputHandler
                     }
                     if (arguments.get(1).equals("keystore"))
                     {
-                        smartCard.uninstallApplet(appletLocation + "KeyStore" + "\\KeyStore.cap");
-                        smartCard.installApplet(appletLocation + "KeyStore" + "\\KeyStore.cap");
+                        smartCard.uninstallApplet(appletLocation + "KeyStore\\KeyStore.cap");
+                        smartCard.installApplet(appletLocation + "KeyStore\\KeyStore.cap");
+                    }
+                    if (arguments.get(1).equals("kyber512"))
+                    {
+                        smartCard.uninstallApplet(appletLocation + "Kyber\\Kyber512.cap");
+                        smartCard.installApplet(appletLocation + "Kyber\\Kyber512.cap");
                     }
                 }
             }

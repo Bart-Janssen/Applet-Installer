@@ -19,8 +19,9 @@ public abstract class SmartCard
 {
     private final Card card;
     protected final byte[] cardManager;
-    private final byte[] PQCApplet = new byte[]{(byte)0x17,(byte)0x6A,(byte)0xE4,(byte)0x61,(byte)0x35,(byte)0xDA,(byte)0xA1,(byte)0x26,(byte)0x07,(byte)0x8B,(byte)0xE5,(byte)0xAC,(byte)0x69,(byte)0x0A,(byte)0x31};
-    private final byte[] RAMApplet = new byte[]{(byte)0x52,(byte)0x41,(byte)0x4D,(byte)0x74,(byte)0x65,(byte)0x73,(byte)0x74};
+    private final byte[] kyberKeyStoreAppletAID = new byte[]{(byte)0x50,(byte)0x51,(byte)0x43,(byte)0x20,(byte)0x4B,(byte)0x65,(byte)0x79,(byte)0x73,(byte)0x74,(byte)0x6F,(byte)0x72,(byte)0x65};
+    private final byte[] kyberApplet512AID = new byte[]{(byte)0x4B,(byte)0x79,(byte)0x62,(byte)0x65,(byte)0x72};
+    private final byte[] RAMAppletAID = new byte[]{(byte)0x52,(byte)0x41,(byte)0x4D,(byte)0x74,(byte)0x65,(byte)0x73,(byte)0x74};
     protected final Map<String, byte[]> keySet;
     protected final Crypto crypto;
     protected Channel channel;
@@ -58,10 +59,20 @@ public abstract class SmartCard
     }
 
     //Global Platform chapter 11.9
-    public void selectPQCApplet() throws Exception
+    public void selectKyberKeyStoreApplet() throws Exception
     {
         this.channel = this.supportedChannels.get(ChannelType.PLAIN).create(this.crypto);
-        CommandAPDU command = new APDU(0x00,0xA4,0x04,0x00, this.PQCApplet, 0x00).create();
+        CommandAPDU command = new APDU(0x00,0xA4,0x04,0x00, this.kyberKeyStoreAppletAID, 0x00).create();
+        ResponseAPDU response = this.transmit(command);
+        System.out.print("Command:  "); this.print(command.getBytes());
+        System.out.print("Response: "); this.print(response.getBytes());
+    }
+
+    //Global Platform chapter 11.9
+    public void selectKyber512Applet() throws Exception
+    {
+        this.channel = this.supportedChannels.get(ChannelType.PLAIN).create(this.crypto);
+        CommandAPDU command = new APDU(0x00,0xA4,0x04,0x00, this.kyberApplet512AID, 0x00).create();
         ResponseAPDU response = this.transmit(command);
         System.out.print("Command:  "); this.print(command.getBytes());
         System.out.print("Response: "); this.print(response.getBytes());
@@ -71,7 +82,7 @@ public abstract class SmartCard
     public void selectRAMApplet() throws Exception
     {
         this.channel = this.supportedChannels.get(ChannelType.PLAIN).create(this.crypto);
-        CommandAPDU command = new APDU(0x00,0xA4,0x04,0x00, this.RAMApplet).create();
+        CommandAPDU command = new APDU(0x00,0xA4,0x04,0x00, this.RAMAppletAID).create();
         ResponseAPDU response = this.transmit(command);
         System.out.print("Command:  "); this.print(command.getBytes());
         System.out.print("Response: "); this.print(response.getBytes());
