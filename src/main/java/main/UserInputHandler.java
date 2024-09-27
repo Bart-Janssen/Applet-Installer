@@ -1,3 +1,5 @@
+package main;
+
 import applet.Applet;
 import pro.javacard.CAPFile;
 import smartcard.SmartCard;
@@ -85,12 +87,12 @@ public class UserInputHandler
                 List<String> arguments = Arrays.asList(command.split(" "));
                 if (arguments.get(0).equals("cap"))
                 {
-                    String cap = "RAMtest";
+                    String cap = "Kyber512";
                     if (arguments.size()>1)
                     {
                         cap = arguments.get(1);
                     }
-                    CAPFile capFile = CAPFile.fromStream(Files.newInputStream(new File(System.getProperty("user.home") + "\\Desktop\\PQC-project\\Applet-RAM-benchmark\\applet\\RAMtest3\\" + cap + ".cap").toPath()));
+                    CAPFile capFile = CAPFile.fromStream(Files.newInputStream(new File(System.getProperty("user.home") + "\\Desktop\\PQC-project\\Applet-RAM-benchmark\\applet\\Kyber\\" + cap + ".cap").toPath()));
                     print(capFile.getCode());
                     capFile.dump(System.out);
                 }

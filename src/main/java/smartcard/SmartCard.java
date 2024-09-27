@@ -186,7 +186,7 @@ public abstract class SmartCard
         data = this.append(data, this.hexStringToByteArray(apduString.substring(8)));
 
         long startTime = System.nanoTime();
-        CommandAPDU installAndMakeSelectableCommand = this.channel.prepare(new APDU(apdu[0],apdu[1],apdu[2],apdu[3],data));
+        CommandAPDU installAndMakeSelectableCommand = this.channel.prepare(new APDU(apdu[0],apdu[1],apdu[2],apdu[3],data,0x00));
         ResponseAPDU installAndMakeSelectableResponse = this.transmit(installAndMakeSelectableCommand);
         System.out.print("Command:  "); this.print(installAndMakeSelectableCommand.getBytes());
         System.out.print("Response: "); this.print(installAndMakeSelectableResponse.getBytes());
