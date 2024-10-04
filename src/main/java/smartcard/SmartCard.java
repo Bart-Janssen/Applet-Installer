@@ -193,13 +193,22 @@ public abstract class SmartCard
         }
         byte[] data = new byte[0];
         data = this.append(data, this.hexStringToByteArray(apduString.substring(8)));
-
         long startTime = System.nanoTime();
-        CommandAPDU installAndMakeSelectableCommand = this.channel.prepare(new APDU(apdu[0],apdu[1],apdu[2],apdu[3],data,0x00));
-        ResponseAPDU installAndMakeSelectableResponse = this.transmit(installAndMakeSelectableCommand);
-        System.out.print("Command:  "); this.print(installAndMakeSelectableCommand.getBytes());
-        System.out.print("Response: "); this.print(installAndMakeSelectableResponse.getBytes());
 
+        if (data.length > 0)
+        {
+            CommandAPDU installAndMakeSelectableCommand = this.channel.prepare(new APDU(apdu[0],apdu[1],apdu[2],apdu[3],data,0x00));
+            ResponseAPDU installAndMakeSelectableResponse = this.transmit(installAndMakeSelectableCommand);
+            System.out.print("Command:  "); this.print(installAndMakeSelectableCommand.getBytes());
+            System.out.print("Response: "); this.print(installAndMakeSelectableResponse.getBytes());
+        }
+        else
+        {
+            CommandAPDU installAndMakeSelectableCommand = this.channel.prepare(new APDU(apdu[0],apdu[1],apdu[2],apdu[3], 0x00));
+            ResponseAPDU installAndMakeSelectableResponse = this.transmit(installAndMakeSelectableCommand);
+            System.out.print("Command:  "); this.print(installAndMakeSelectableCommand.getBytes());
+            System.out.print("Response: "); this.print(installAndMakeSelectableResponse.getBytes());
+        }
         long duration = System.nanoTime() - startTime;
         System.out.println("Execution time (in milliseconds): " + (duration / 1_000_000));
     }
