@@ -100,8 +100,10 @@ public class UserInputHandler
                 if (arguments.get(0).equals("keystore")) smartCard.selectKyberKeyStoreApplet();
                 if (arguments.get(0).equals("kyber512")) smartCard.selectKyber512Applet();
                 if (arguments.get(0).equals("ram")) smartCard.selectRAMApplet();
+                if (arguments.get(0).equals("test")) smartCard.selectTestApplet();
                 if (arguments.get(0).equals("select"))
                 {
+                    if (arguments.get(1).equals("test")) smartCard.selectTestApplet();
                     if (arguments.get(1).equals("cm")) smartCard.selectCardManager();
                     if (arguments.get(1).equals("keystore")) smartCard.selectKyberKeyStoreApplet();
                     if (arguments.get(1).equals("kyber512")) smartCard.selectKyber512Applet();
@@ -114,10 +116,6 @@ public class UserInputHandler
                 if (arguments.get(0).equals("secure"))
                 {
                     smartCard.openSecureChannel(ChannelType.MAC);
-                }
-                if (arguments.get(0).equals("test"))
-                {
-                    smartCard.test();
                 }
                 if (arguments.get(0).equals("applets"))
                 {
@@ -156,29 +154,31 @@ public class UserInputHandler
                 {
                     if (arguments.size() < 2)
                     {
-                        System.out.println("Use ram/keystore/kyber512 parameter");
+                        System.out.println("Use ram/keystore/kyber512/test parameter");
                         continue;
                     }
                     if (arguments.get(1).equals("ram")) smartCard.installApplet(appletLocation + "RAMtest" + selectedSmartCardType + "\\RAMtest.cap");
                     if (arguments.get(1).equals("kyber512")) smartCard.installApplet(appletLocation + "Kyber\\kyber512.cap");
                     if (arguments.get(1).equals("keystore")) smartCard.installApplet(appletLocation + "KeyStore\\KeyStore.cap");
+                    if (arguments.get(1).equals("test")) smartCard.installApplet(appletLocation + "Test\\Test.cap");
                 }
                 if (arguments.get(0).equals("uninstall"))
                 {
                     if (arguments.size() < 2)
                     {
-                        System.out.println("Use ram/keystore/kyber512 parameter");
+                        System.out.println("Use ram/keystore/kyber512/test parameter");
                         continue;
                     }
                     if (arguments.get(1).equals("ram")) smartCard.uninstallApplet(appletLocation + "RAMtest" + selectedSmartCardType + "\\RAMtest.cap");
                     if (arguments.get(1).equals("kyber512")) smartCard.uninstallApplet(appletLocation + "Kyber\\Kyber512.cap");
                     if (arguments.get(1).equals("keystore")) smartCard.uninstallApplet(appletLocation + "KeyStore\\KeyStore.cap");
+                    if (arguments.get(1).equals("test")) smartCard.uninstallApplet(appletLocation + "Test\\Test.cap");
                 }
                 if (arguments.get(0).equals("update"))
                 {
                     if (arguments.size() < 2)
                     {
-                        System.out.println("Use ram/keystore parameter");
+                        System.out.println("Use ram/keystore/kyber512/test parameter");
                         continue;
                     }
                     if (arguments.get(1).equals("ram"))
@@ -195,6 +195,11 @@ public class UserInputHandler
                     {
                         smartCard.uninstallApplet(appletLocation + "Kyber\\Kyber512.cap");
                         smartCard.installApplet(appletLocation + "Kyber\\Kyber512.cap");
+                    }
+                    if (arguments.get(1).equals("test"))
+                    {
+                        smartCard.uninstallApplet(appletLocation + "Test\\Test.cap");
+                        smartCard.installApplet(appletLocation + "Test\\Test.cap");
                     }
                 }
             }

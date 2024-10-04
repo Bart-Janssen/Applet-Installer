@@ -25,12 +25,6 @@ public class SmartCardVersion3 extends SmartCard
     }
 
     @Override
-    public void test() throws Exception
-    {
-
-    }
-
-    @Override
     public void openSecureChannel(ChannelType channelType) throws Exception
     {
         byte[] hostChallenge = super.crypto.getRandomBytes(8);

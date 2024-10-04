@@ -24,15 +24,6 @@ public class SmartCardVersion2 extends SmartCard
     }
 
     @Override
-    public void test() throws Exception
-    {
-        CommandAPDU initUpdateCommand = new APDU(0x80,0xB4,0x00,0x10,0x00).create();
-        ResponseAPDU initUpdateResponse = super.transmit(initUpdateCommand);
-        System.out.print("Command:  "); this.print(initUpdateCommand.getBytes());
-        System.out.print("Response: "); this.print(initUpdateResponse.getBytes());
-    }
-
-    @Override
     public void installApplet(String applet) throws Exception
     {
         int maxDataWithoutMac = 100-this.channel.getOverhead();
