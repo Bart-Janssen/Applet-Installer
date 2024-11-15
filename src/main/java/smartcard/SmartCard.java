@@ -176,12 +176,27 @@ public abstract class SmartCard
         uninstallData = this.append(uninstallData, (byte)aid.length);
         uninstallData = this.append(uninstallData, aid);
 
-        CommandAPDU installAndMakeSelectableCommand = this.channel.prepare(new APDU(0x80,0xE4,0x00,0x80,uninstallData));
-        ResponseAPDU installAndMakeSelectableResponse = this.transmit(installAndMakeSelectableCommand);
-        System.out.print("Command:  "); this.print(installAndMakeSelectableCommand.getBytes());
-        System.out.print("Response: "); this.print(installAndMakeSelectableResponse.getBytes());
+        CommandAPDU command = this.channel.prepare(new APDU(0x80,0xE4,0x00,0x80,uninstallData));
+        ResponseAPDU response = this.transmit(command);
+        System.out.print("Command:  "); this.print(command.getBytes());
+        System.out.print("Response: "); this.print(response.getBytes());
     }
 
+    public void longTest() throws Exception
+    {
+        int i = 0;
+        ResponseAPDU response;
+        do
+        {
+            i++;
+            System.out.println("Long test iteration: " + i);
+            CommandAPDU command = this.channel.prepare(new APDU(0x00,0x11,0x00,0x00, 0x00));
+            response = this.transmit(command);
+            System.out.print("Command:  "); this.print(command.getBytes());
+            System.out.print("Response: "); this.print(response.getBytes());
+        }
+        while (response.getSW() == 0x9000);
+    }
 
     public void customAPDU(String apduString) throws Exception
     {
@@ -197,17 +212,17 @@ public abstract class SmartCard
 
         if (data.length > 0)
         {
-            CommandAPDU installAndMakeSelectableCommand = this.channel.prepare(new APDU(apdu[0],apdu[1],apdu[2],apdu[3],data,0x00));
-            ResponseAPDU installAndMakeSelectableResponse = this.transmit(installAndMakeSelectableCommand);
-            System.out.print("Command:  "); this.print(installAndMakeSelectableCommand.getBytes());
-            System.out.print("Response: "); this.print(installAndMakeSelectableResponse.getBytes());
+            CommandAPDU command = this.channel.prepare(new APDU(apdu[0],apdu[1],apdu[2],apdu[3],data,0x00));
+            ResponseAPDU response = this.transmit(command);
+            System.out.print("Command:  "); this.print(command.getBytes());
+            System.out.print("Response: "); this.print(response.getBytes());
         }
         else
         {
-            CommandAPDU installAndMakeSelectableCommand = this.channel.prepare(new APDU(apdu[0],apdu[1],apdu[2],apdu[3], 0x00));
-            ResponseAPDU installAndMakeSelectableResponse = this.transmit(installAndMakeSelectableCommand);
-            System.out.print("Command:  "); this.print(installAndMakeSelectableCommand.getBytes());
-            System.out.print("Response: "); this.print(installAndMakeSelectableResponse.getBytes());
+            CommandAPDU command = this.channel.prepare(new APDU(apdu[0],apdu[1],apdu[2],apdu[3], 0x00));
+            ResponseAPDU response = this.transmit(command);
+            System.out.print("Command:  "); this.print(command.getBytes());
+            System.out.print("Response: "); this.print(response.getBytes());
         }
         long duration = System.nanoTime() - startTime;
         System.out.println("Execution time (in milliseconds): " + (duration / 1_000_000));

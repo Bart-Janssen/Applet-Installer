@@ -113,6 +113,10 @@ public class UserInputHandler
                 {
                     smartCard.customAPDU(arguments.get(1));
                 }
+                if (arguments.get(0).equals("longtest"))
+                {
+                    smartCard.longTest();
+                }
                 if (arguments.get(0).equals("secure"))
                 {
                     smartCard.openSecureChannel(ChannelType.MAC);
