@@ -188,12 +188,15 @@ public abstract class SmartCard
         ResponseAPDU response;
         do
         {
+            long startTime = System.nanoTime();
             i++;
             System.out.println("Long test iteration: " + i);
             CommandAPDU command = this.channel.prepare(new APDU(0x00,0x11,0x00,0x00, 0x00));
             response = this.transmit(command);
             System.out.print("Command:  "); this.print(command.getBytes());
             System.out.print("Response: "); this.print(response.getBytes());
+            long duration = System.nanoTime() - startTime;
+            System.out.println("Execution time (in milliseconds): " + (duration / 1_000_000));
         }
         while (response.getSW() == 0x9000);
     }
