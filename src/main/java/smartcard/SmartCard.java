@@ -20,7 +20,7 @@ public abstract class SmartCard
     private final Card card;
     protected final byte[] cardManager;
     private final byte[] kyberKeyStoreAppletAID = new byte[]{(byte)0x50,(byte)0x51,(byte)0x43,(byte)0x20,(byte)0x4B,(byte)0x65,(byte)0x79,(byte)0x73,(byte)0x74,(byte)0x6F,(byte)0x72,(byte)0x65};
-    private final byte[] kyberApplet512AID = new byte[]{(byte)0x4B,(byte)0x79,(byte)0x62,(byte)0x65,(byte)0x72};
+    private final byte[] kyberAppletAID = new byte[]{(byte)0x4B,(byte)0x79,(byte)0x62,(byte)0x65,(byte)0x72};
     private final byte[] RAMAppletAID = new byte[]{(byte)0x52,(byte)0x41,(byte)0x4D,(byte)0x74,(byte)0x65,(byte)0x73,(byte)0x74};
     private final byte[] testAppletAID = new byte[]{(byte)0x74,(byte)0x65,(byte)0x73,(byte)0x74,(byte)0x00};
     protected final Map<String, byte[]> keySet;
@@ -69,10 +69,10 @@ public abstract class SmartCard
     }
 
     //Global Platform chapter 11.9
-    public void selectKyber512Applet() throws Exception
+    public void selectKyberApplet() throws Exception
     {
         this.channel = this.supportedChannels.get(ChannelType.PLAIN).create(this.crypto);
-        CommandAPDU command = new APDU(0x00,0xA4,0x04,0x00, this.kyberApplet512AID, 0x00).create();
+        CommandAPDU command = new APDU(0x00,0xA4,0x04,0x00, this.kyberAppletAID, 0x00).create();
         ResponseAPDU response = this.transmit(command);
         System.out.print("Command:  "); this.print(command.getBytes());
         System.out.print("Response: "); this.print(response.getBytes());
