@@ -113,10 +113,6 @@ public class UserInputHandler
                 {
                     smartCard.customAPDU(arguments.get(1));
                 }
-                if (arguments.get(0).equals("longtest"))
-                {
-                    smartCard.longTest();
-                }
                 if (arguments.get(0).equals("secure"))
                 {
                     smartCard.openSecureChannel(ChannelType.MAC);
@@ -158,31 +154,29 @@ public class UserInputHandler
                 {
                     if (arguments.size() < 2)
                     {
-                        System.out.println("Use ram/keystore/kyber/test parameter");
+                        System.out.println("Use ram/keystore/kyber parameter");
                         continue;
                     }
                     if (arguments.get(1).equals("ram")) smartCard.installApplet(appletLocation + "RAMtest" + selectedSmartCardType + "\\RAMtest.cap");
                     if (arguments.get(1).equals("kyber")) smartCard.installApplet(appletLocation + "Kyber\\Kyber.cap");
                     if (arguments.get(1).equals("keystore")) smartCard.installApplet(appletLocation + "KeyStore\\KeyStore.cap");
-                    if (arguments.get(1).equals("test")) smartCard.installApplet(appletLocation + "Test\\Test.cap");
                 }
                 if (arguments.get(0).equals("uninstall"))
                 {
                     if (arguments.size() < 2)
                     {
-                        System.out.println("Use ram/keystore/kyber/test parameter");
+                        System.out.println("Use ram/keystore/kyber parameter");
                         continue;
                     }
                     if (arguments.get(1).equals("ram")) smartCard.uninstallApplet(appletLocation + "RAMtest" + selectedSmartCardType + "\\RAMtest.cap");
                     if (arguments.get(1).equals("kyber")) smartCard.uninstallApplet(appletLocation + "Kyber\\Kyber.cap");
                     if (arguments.get(1).equals("keystore")) smartCard.uninstallApplet(appletLocation + "KeyStore\\KeyStore.cap");
-                    if (arguments.get(1).equals("test")) smartCard.uninstallApplet(appletLocation + "Test\\Test.cap");
                 }
                 if (arguments.get(0).equals("update"))
                 {
                     if (arguments.size() < 2)
                     {
-                        System.out.println("Use ram/keystore/kyber/test parameter");
+                        System.out.println("Use ram/keystore/kyber parameter");
                         continue;
                     }
                     if (arguments.get(1).equals("ram"))
@@ -199,11 +193,6 @@ public class UserInputHandler
                     {
                         smartCard.uninstallApplet(appletLocation + "Kyber\\Kyber.cap");
                         smartCard.installApplet(appletLocation + "Kyber\\Kyber.cap");
-                    }
-                    if (arguments.get(1).equals("test"))
-                    {
-                        smartCard.uninstallApplet(appletLocation + "Test\\Test.cap");
-                        smartCard.installApplet(appletLocation + "Test\\Test.cap");
                     }
                 }
             }
